@@ -41,7 +41,7 @@ public class FileService : IFileService
 
         while (true)
         {
-            index = line.IndexOf(word, index, StringComparison.OrdinalIgnoreCase);
+            index = line.IndexOf(word, index);
             if (index == -1)
             {
                 break;
