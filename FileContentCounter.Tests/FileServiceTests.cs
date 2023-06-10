@@ -7,9 +7,7 @@ public class FileServiceTests
 {
     private FileService fileService;
     private string testFilesDirectory;
-    
-    //TODO: Test files are in use when running tests.. fix this somehow
-    
+
     [SetUp]
     public void SetUp()
     {

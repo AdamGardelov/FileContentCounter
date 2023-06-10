@@ -40,7 +40,9 @@ public class FileService : IFileService
             throw new FileProcessingException("Error occurred while processing the file.", ex);
         }
     }
-    
+
+    #region Private help methods
+
     private int CountWordOccurrencesInLine(string line, string word)
     {
         var count = 0;
@@ -60,4 +62,6 @@ public class FileService : IFileService
 
         return count;
     }
+
+    #endregion
 }
