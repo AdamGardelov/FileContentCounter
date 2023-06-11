@@ -1,14 +1,11 @@
-﻿using FileContentCounter.Exceptions;
-using FileContentCounter.Services;
+﻿using FileContentCounter.Entities;
 
 namespace FileContentCounter;
 
-class Program
+internal abstract class Program
 {
-    static void Main(string[] args)
+    private static void Main(string[] args)
     {
-        IFileService fileService = new FileService();
-        
         if (args.Length != 1)
         {
             Console.WriteLine("Please provide a valid path.");
@@ -16,11 +13,12 @@ class Program
         }
         
         var filePath = args[0];
+        var textDocument = new TextDocument(filePath);
         
         try
         {
-            var occurrences = fileService.CountWordOccurrencesInFile(filePath, out var fileName);
-            Console.WriteLine($"The filename '{fileName}' occurs {occurrences} times in the file.");
+            var occurrences = textDocument.CountFileNameOccurrencesInContent();
+            Console.WriteLine($"The filename '{textDocument.FileName}' occurs {occurrences} times in the file.");
         }
         catch (ArgumentException ex)
         {
