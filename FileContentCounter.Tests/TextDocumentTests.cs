@@ -77,10 +77,23 @@ public class TextDocumentTests
         var filePath = Path.Combine(_testFilesDirectory, "nonexistentfile.txt");
 
         // Act and Assert
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<FileNotFoundException>(() =>
         {
             var textDocument = new TextDocument(filePath);
-            Assert.Throws<ArgumentException>(() => textDocument.CountFileNameOccurrencesInContent());
+            Assert.Throws<FileNotFoundException>(() => textDocument.CountFileNameOccurrencesInContent());
+        });
+    }
+    
+    [Test]
+    public void CountOccurrences_WhenWrongFileFormat_ThrowsFileLoadException()
+    {
+        // Arrange
+        var filePath = Path.Combine(_testFilesDirectory, "test.pdf");
+
+        // Act and Assert
+        Assert.Throws<FileLoadException>(() =>
+        {
+            var textDocument = new TextDocument(filePath);
         });
     }
 }

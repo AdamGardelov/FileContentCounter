@@ -2,6 +2,7 @@
 
 public class TextDocument
 {
+    private static readonly string[] TextExtensions = { ".txt", ".doc", ".docx", ".rtf" };
     private string FilePath { get; }
     public string FileName { get; }
 
@@ -16,13 +17,12 @@ public class TextDocument
     {
         if (!File.Exists(filePath))
         {
-            throw new ArgumentException("Not a valid filepath.");
+            throw new FileNotFoundException("Not a valid filepath.");
         }
         
-        var extension = Path.GetExtension(filePath);
-        if (!IsTextDocument(extension))
+        if (!IsTextDocument(filePath))
         {
-            throw new ArgumentException("Not a valid text document.");
+            throw new FileLoadException("Not a valid text document.");
         }
 
         FilePath = filePath;
@@ -36,6 +36,11 @@ public class TextDocument
     /// <exception cref="FileProcessingException">Thrown when an error occurs during file processing.</exception>
     public int CountFileNameOccurrencesInContent()
     {
+        if (string.IsNullOrEmpty(FileName))
+        {
+            throw new InvalidOperationException("Filename is empty.");
+        }
+        
         try
         {
             using var fileStream = File.Open(FilePath, FileMode.Open);
@@ -59,10 +64,10 @@ public class TextDocument
 
     #region Private help methods
 
-    private static bool IsTextDocument(string extension)
+    private static bool IsTextDocument(string filePath)
     {
-        string[] textExtensions = { ".txt", ".doc", ".docx", ".rtf" };
-        return textExtensions.Contains(extension);
+        var extension = Path.GetExtension(filePath);
+        return TextExtensions.Contains(extension);
     }
     
     private int CountWordOccurrencesInLine(string line)

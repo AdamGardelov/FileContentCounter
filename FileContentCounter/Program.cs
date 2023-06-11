@@ -2,7 +2,7 @@
 
 namespace FileContentCounter;
 
-internal abstract class Program
+internal class Program
 {
     private static void Main(string[] args)
     {
@@ -13,24 +13,26 @@ internal abstract class Program
         }
         
         var filePath = args[0];
-        var textDocument = new TextDocument(filePath);
+        TextDocument textDocument;
+
+        try
+        {
+            textDocument = new TextDocument(filePath);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred when loading the file: {ex.Message}");
+            return;
+        }
         
         try
         {
             var occurrences = textDocument.CountFileNameOccurrencesInContent();
             Console.WriteLine($"The filename '{textDocument.FileName}' occurs {occurrences} times in the file.");
         }
-        catch (ArgumentException ex)
-        {
-            Console.WriteLine($"Invalid filepath: {ex.Message}");
-        }
-        catch (FileProcessingException ex)
-        {
-            Console.WriteLine($"Error occurred while processing the file: {ex.Message}");
-        }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            Console.WriteLine($"An error occurred when processing the file: {ex.Message}");
         }
     }
 }
