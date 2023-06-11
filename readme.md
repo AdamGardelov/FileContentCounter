@@ -5,8 +5,8 @@ within its contents. The program takes one argument, which is the path to the fi
 
 Example: If the argument is "testfile.txt," the program will count how many times the string "testfile" appears in the file.
 
-The program utilizes a FileService to handle the occurrence counting. 
-The service has a method called CountWordOccurrencesInFile that reads the file and iterates over all lines in the file, 
+The program utilizes a TextDocument class to handle the occurrence counting. 
+The class has a method called CountWordOccurrencesInFile that reads the file and iterates over all lines in the file, 
 for each line it checks for the word. This seems like a better option than File.ReadAllText if the files are very big.
 
 # FileContentCounter.Tests
