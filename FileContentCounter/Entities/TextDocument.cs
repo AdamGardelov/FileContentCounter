@@ -5,6 +5,13 @@ public class TextDocument
     private string FilePath { get; }
     public string FileName { get; }
 
+    /// <summary>
+    /// Represents a text document that can be processed and analyzed.
+    /// </summary>
+    /// <remarks>
+    /// The TextDocument class provides functionality to count the occurrences of a specific word within the content of the document.
+    /// It also verifies if the given file path is valid and checks if the file is a supported text document format (.txt, .doc, .docx, .rtf).
+    /// </remarks>
     public TextDocument(string filePath)
     {
         if (!File.Exists(filePath))
